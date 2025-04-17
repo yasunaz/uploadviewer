@@ -1,0 +1,9 @@
+Verify that only ASO user can sign the agreement
+
+Verify that non-authorized users cannot access or proceed with enrollment before the agreement is signed
+
+Verify that non-authorized users can view the signed agreement and proceed with enrollment after ASO signs
+
+Verify that signed agreement details (signed by and timestamp) are displayed on the Dashboard page for all users
+
+Verify that signed agreement status is consistently updated across all relevant views
