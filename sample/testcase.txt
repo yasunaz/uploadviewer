@@ -1,88 +1,233 @@
-===========================================
-Test Case ID: TC_TIN_01
-Title: Taxpayer Identification Number Field - Visibility
-Description:
-This test verifies that the Taxpayer Identification Number field is displayed on the Bank Information Enrollment form with the correct label and is accessible to users.
+Test Case 1: Name of Institution Field Validation
+Description: Validate input for Name of Institution, allowing alphanumeric and special characters.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
 
-Acceptance Criteria:
-- A field labeled “Taxpayer Identification Number” must be visible on the form
-- Label must be clear and accurately reflect the expected input
-
-Preconditions:
-- User is logged in as a Manufacturer
-- Navigated to the Bank Information Enrollment page
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
 
 Test Steps:
-1. Navigate to the "Manufacturer Enrollment" section
-2. Locate the field labeled “Taxpayer Identification Number”
+- Enter the value "Bank of America" → Accepted
+- Enter the value "1st-Financial_Corp#" → Accepted
+- Enter the value "" (blank) → Show validation error: "Institution name is required."
+- Enter the value "   " (spaces only) → Show validation error: "Institution name is required."
+- Enter the value "@#$%^" (only special characters) → Show validation error: "Invalid name: must include letters or numbers."
 
-Expected Result:
-- The field is visible and labeled correctly
-===========================================
+---
 
+Test Case 2: Street Address Field Validation
+Description: Validate input for Street Address.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
 
-===========================================
-Test Case ID: TC_TIN_Validation_01
-Title: Taxpayer Identification Number Field - Input Validation
-Description:
-This test ensures that the Taxpayer Identification Number field only accepts valid inputs—specifically, exactly 9 numeric digits. It checks for invalid formats such as too few or too many digits, letters, special characters, and formats with dashes.
-
-Acceptance Criteria:
-- Only 9-digit numeric input is accepted
-- Input must be rejected for invalid lengths, non-numeric characters, or incorrect formatting
-- Numbers starting with 0 are accepted
-
-Preconditions:
-- User is logged in as a Manufacturer
-- Navigated to the Bank Information Enrollment page
-
-Test Steps and Expected Results:
-Step 1:
-Input: 123456789
-Expected Result: Input accepted without error
-
-Step 2:
-Input: 1234567
-Expected Result: Error: "Taxpayer Identification Number must be 9 digits"
-
-Step 3:
-Input: 1234567890
-Expected Result: Error: "Taxpayer Identification Number must be 9 digits"
-
-Step 4:
-Input: 012345678
-Expected Result: Input accepted without error
-
-Step 5:
-Input: 123-45-6789
-Expected Result: Error or auto-sanitized to numeric input only
-
-Step 6:
-Input: 12A45B789
-Expected Result: Error: "Only numeric values are allowed"
-===========================================
-
-
-===========================================
-Test Case ID: TC_TIN_03
-Title: Taxpayer Identification Number Field - Blank Field Validation
-Description:
-This test checks that the form validation logic requires the Taxpayer Identification Number field to be filled before submission. If left blank, an appropriate error message should be displayed and the form must not be submitted.
-
-Acceptance Criteria:
-- Field must be required
-- Clear error message shown if left empty
-- Form submission is blocked until valid input is provided
-
-Preconditions:
-- User is logged in as a Manufacturer
-- Navigated to the Bank Information Enrollment page
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
 
 Test Steps:
-1. Leave the Taxpayer Identification Number field empty
-2. Attempt to submit the form
+- Enter the value "123 Main St." → Accepted
+- Enter the value "45-67 5th Ave, Apt#3B" → Accepted
+- Enter the value "" (blank) → Show validation error: "Street address is required."
+- Enter the value "!@#$%^&*()" → Show validation error: "Invalid address: must contain numbers or letters."
+- Enter the value "       " (spaces only) → Show validation error: "Street address is required."
 
-Expected Result:
-- Error message displayed: “Taxpayer Identification Number is required”
-- Form does not proceed with submission
-===========================================
+---
+
+
+Test Case 3: Apt., Suite, etc. Field Validation (Optional)
+Description: Optional field, should accept all reasonable inputs and blanks.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Leave blank → Accepted
+- Enter the value "Suite 305" → Accepted
+- Enter the value "Apt 2A" → Accepted
+- Enter the value "#5B - West Wing" → Accepted
+- Enter the value "N/A" → Accepted
+
+---
+
+
+Test Case 4: City Field Validation
+Description: Validate city name input.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Enter the value "New York" → Accepted
+- Enter the value "San José" → Accepted
+- Enter the value "St. Louis" → Accepted
+- Enter the value "Fort-Worth" → Accepted
+- Enter the value "" (blank) → Show validation error: "City is required."
+- Enter the value "12345" → Show validation error: "Invalid city name: only letters allowed."
+- Enter the value "@@!!" → Show validation error: "Invalid city name."
+- Enter the value "  " (spaces only) → Show validation error: "City is required."
+
+
+---
+
+Test Case 5: State Dropdown Validation
+Description: Validate that a state is selected from the dropdown.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Select the value "NY" → Accepted
+- Select the value "CA" → Accepted
+- Leave unselected → Show validation error: "State is required."
+- Select the default option "--Select--" → Show validation error: "Please select a valid state."
+
+
+---
+
+Test Case 6: ZIP Code Field Validation
+Description: Validate 5-digit ZIP Code.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Enter the value "90210" → Accepted
+- Enter the value "1234" → Show validation error: "ZIP Code must be 5 digits."
+- Enter the value "123456" → Show validation error: "ZIP Code must be 5 digits."
+- Enter the value "ABCDE" → Show validation error: "ZIP Code must contain only numbers."
+- Enter the value "123 45" → Show validation error: "No spaces allowed."
+- Enter the value "12-345" → Show validation error: "Invalid ZIP format."
+- Enter the value "" (blank) → Show validation error: "ZIP Code is required."
+
+
+---
+
+Test Case 7: Account Number Field Validation
+Description: Validate 9-digit account number.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Enter the value "123456789" → Accepted
+- Enter the value "12345" → Show validation error: "Account number must be 9 digits."
+- Enter the value "abcdefgh" → Show validation error: "Only numbers allowed."
+- Enter the value "1234ABCD9" → Show validation error: "Only numbers allowed."
+- Enter the value "1234567890" → Show validation error: "Must be exactly 9 digits."
+- Enter the value "12 34 56 78 9" → Show validation error: "Spaces not allowed."
+- Enter the value "" (blank) → Show validation error: "Account number is required."
+
+
+---
+
+Test Case 8: Confirm Account Number Field Validation
+Description: Validate confirmation of account number.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Manually enter the value "123456789" to match → Accepted
+- Enter the value "987654321" → Show validation error: "Account numbers do not match."
+- Paste the value "123456789" → Show validation error or block: "Copy-paste not allowed."
+- Enter the value "123 456 789" → Show validation error: "Invalid format, must match exactly."
+- Enter the value "" (blank) → Show validation error: "Confirmation required."
+
+
+---
+
+Test Case 9: TIN Number Field Validation
+Description: Validate input of Tax Identification Number (TIN).
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Enter the value "012345678" → Accepted
+- Enter the value "12345678" → Show validation error: "TIN must be 9 digits."
+- Enter the value "1234567890" → Show validation error: "TIN must be 9 digits."
+- Enter the value "123-45-6789" → Show validation error: "Hyphens not allowed."
+- Enter the value "TIN123456" → Show validation error: "Only numbers allowed."
+- Enter the value "" (blank) → Show validation error: "TIN number is required."
+
+
+---
+
+Test Case 10: First Name Field Validation
+Description: Validate First Name input.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Enter the value "John" → Accepted
+- Enter the value "María" → Accepted
+- Enter the value "12345" → Show validation error: "First name must only contain letters."
+- Enter the value "John123" → Show validation error: "Invalid characters in first name."
+- Enter the value "@@@" → Show validation error: "Invalid name."
+- Enter the value "" (blank) → Show validation error: "First name is required."
+
+
+---
+
+Test Case 11: Last Name Field Validation
+Description: Validate Last Name input.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Enter the value "Smith" → Accepted
+- Enter the value "O’Connor" → Accepted
+- Enter the value "Smith99" → Show validation error: "Invalid characters in last name."
+- Enter the value "!!Smith" → Show validation error: "Special characters not allowed."
+- Enter the value "" (blank) → Show validation error: "Last name is required."
+
+
+---
+
+Test Case 12: Email Field Validation
+Description: Validate email input format.
+Acceptance Criteria: 
+ - Invalid form input will result in corresponding error message 
+ 
+Precondition:
+- User is logged in
+- User is on the Manufacturer Enrollment form MTF Payment module section
+
+Test Steps:
+- Enter the value "john.doe@example.com" → Accepted
+- Enter the value "user123@sub.domain.org" → Accepted
+- Enter the value "user@.com" → Show validation error: "Invalid email format."
+- Enter the value "user@domain" → Show validation error: "Invalid email format."
+- Enter the value "user@domain..com" → Show validation error: "Invalid email format."
+- Enter the value "userexample.com" → Show validation error: "Missing '@' symbol."
+- Enter the value "" (blank) → Show validation error: "Email is required."
